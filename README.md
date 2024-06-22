@@ -28,7 +28,7 @@ The VAE consists of an encoder and a decoder:
 1. Clone the repository:
     ```bash
     git clone https://github.com/danielshort3/handwritten-digit-generator.git
-    cd variational-autoencoder
+    cd handwritten-digit-generator
     ```
 
 2. Install the required packages (make sure you have `pip` installed):
