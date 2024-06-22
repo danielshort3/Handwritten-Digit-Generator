@@ -1,53 +1,72 @@
 # Handwritten Digit Generator
 
-This repository contains a project aimed at finding the most relevant sentences to an input query using various pre-trained sentence-transformer models. The project processes large text files, segments them into sentences, cleans the sentences, and computes their relevance scores based on cosine similarity with the input query.
+This repository contains a project aimed at training a Variational Autoencoder (VAE) on the MNIST dataset. The project includes data preparation, model definition, training and evaluation procedures, and various visualizations and analyses of the results.
 
 ## Table of Contents
+
 - [Introduction](#introduction)
-- [Models](#models)
-- [Processing Text](#processing-text)
+- [Model Architecture](#model-architecture)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Visualizations](#visualizations)
+- [Data Analysis](#data-analysis)
+- [Error Analysis](#error-analysis)
 
 ## Introduction
-This project leverages pre-trained sentence-transformer models to identify and rank the most relevant sentences in a text document based on a given query. The process includes loading and cleaning the text, segmenting it into sentences, and calculating relevance scores using cosine similarity.
 
-## Models
-The repository supports the following pre-trained models:
-- `sentence-transformers/all-mpnet-base-v2`
-- `BAAI/bge-large-en-v1.5`
-- `BAAI/bge-small-en-v1.5`
-- `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
-- `sentence-transformers/all-distilroberta-v1`
-- `sentence-transformers/paraphrase-distilroberta-base-v1`
-- `sentence-transformers/distiluse-base-multilingual-cased-v2`
-- `sentence-transformers/msmarco-distilbert-cos-v5`
+This project demonstrates the use of a Variational Autoencoder (VAE) to learn a latent representation of MNIST digit images. The VAE model is trained to encode input images into a latent space and then decode them back to reconstruct the original images. The project includes steps for training the model, testing it, and performing various visualizations and analyses to understand the learned latent space.
 
-These models are used to encode both the input query and sentences from the text to compute similarity scores.
+## Model Architecture
 
-## Processing Text
-The project includes several helper functions to process the text:
-- **Text Chunking**: Splits the text into manageable chunks based on character count.
-- **Sentence Segmentation**: Segments chunks into individual sentences using `pysbd`.
-- **Cleaning Sentences**: Removes extra spaces and normalizes the text.
-
-The `process` function calculates relevance scores for the sentences and prints the top-ranked sentences.
+The VAE consists of an encoder and a decoder:
+- **Encoder:** Three convolutional layers to encode input images into a latent space.
+- **Decoder:** Three transposed convolutional layers to reconstruct images from the latent space.
+- **Reparameterization Trick:** Used to sample from the latent space during training.
 
 ## Installation
-Clone the repository:
-```bash
-git clone https://github.com/danielshort3/sentence-embeddings.git
-cd sentence-embeddings
-```
 
-Install the required packages:
-```base
-pip install torch sentence-transformers pysbd
-```
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/danielshort3/variational-autoencoder.git
+    cd variational-autoencoder
+    ```
+
+2. Install the required packages (make sure you have `pip` installed):
+    ```bash
+    pip install torch torchvision tqdm matplotlib scikit-learn
+    ```
 
 ## Usage
-Run the notebook to process a text document and find relevant sentences:
 
-1. Place your text file in the data directory.
-2. Modify the input_query variable in the notebook to your desired query.
-3. Execute the cells in the notebook.
+1. Run the code from beginning to end to train the model using `Variational_Autoencoder.ipynb` notebook.
+2. After training, the notebook includes various sections for:
+   - Visualizing the original and reconstructed images.
+   - Exploring the latent space with dimensionality reduction techniques (PCA, t-SNE, UMAP).
+   - Performing clustering analysis (HDBSCAN, DBSCAN).
+   - Generating new images by sampling the latent space.
+   - Analyzing reconstruction errors.
+
+## Visualizations
+
+The notebook provides visualizations such as:
+- Original and reconstructed images.
+- Latent space representations with PCA, t-SNE, and UMAP.
+- Generated images by sampling from the latent space.
+- UMAP plot with annotated outliers and cluster centroids.
+
+## Data Analysis
+
+The project includes analyses like:
+- Clustering of latent space representations using HDBSCAN and DBSCAN.
+- Calculation and visualization of cluster centroids.
+- Outlier detection and nearest cluster calculation.
+- Visualization of outliers and their reconstruction.
+
+## Error Analysis
+
+Error analysis includes:
+- Displaying images with the highest and lowest reconstruction errors.
+- Randomly selecting and displaying images with their reconstruction errors.
+- Calculating and displaying average reconstruction error per digit.
+
+For detailed explanations and visualizations, refer to the `Variational_Autoencoder.ipynb` notebook.
